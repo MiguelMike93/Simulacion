@@ -67,7 +67,7 @@ public class Simulacion {
 			for (int j = 0; j < machos.size(); j++) {
 				verificarMadurez(machos.get(j));
 				machos.get(j).setEdad(machos.get(j).getEdad()+1);//Aumenta la edad del conejo.
-				//-->Verificar edad del conejo para matarlo. Edad de muerte (15 años).
+				if(machos.get(j).getEdad()==5475)machos.remove(machos.get(j));//matar(machos.get(j)) utlizando el metodo//-->Verificar edad del conejo para matarlo. Edad de muerte (15 años).
 			}
 			//Bucle de conejos hembra
 			for (int j = 0; j < hembras.size(); j++) {
