@@ -11,6 +11,7 @@ public class Probabilidad {
 	private int distribucion;
 	private Random generator;
 	
+	
 	public Probabilidad(int distribucion) {
 		this.distribucion = distribucion;
 		generator =  new Random();
