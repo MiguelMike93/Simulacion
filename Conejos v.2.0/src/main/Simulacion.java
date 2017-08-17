@@ -124,6 +124,7 @@ public class Simulacion {
 
 				}
 				if (hembras.get(j).isEmbarazo()) {
+					if(hembras.get(j).getTiempoGestacion()==0){
 					//		-->Verificar parto: Si los dias del parto son iguales a 0:
 					//					-->Calcular mortalidad de gazapos: 
 					//							en promedio 2, pero varia respecto a la
@@ -135,25 +136,14 @@ public class Simulacion {
 					//					-->Quitar estado de embarazo, poner estado de lactancia.
 					//					-->Calcular celo.
 					//					-->DÃ­as de lactancia: 4 semanas.
-					generarHijos(hembras.get(j));
-					hembras.get(j).setEmbarazo(false);
-					hembras.get(j).setLactancia(true);
-					calcularCelo(hembras.get(j));
-					hembras.get(j).setDiasLactancia(28);
+						generarHijos(hembras.get(j));
+						hembras.get(j).setEmbarazo(false);
+						hembras.get(j).setLactancia(true);
+						calcularCelo(hembras.get(j));
+						hembras.get(j).setDiasLactancia(28);
+					}
 				}
-				// -->Si está embarazada:
-				// -->Verificar parto: Si los dias del parto son iguales a 0:
-				// -->Calcular mortalidad de gazapos:
-				// en promedio 2, pero varia respecto a la
-				// edad de la coneja, entre más joven más probabilidad de morir,
-				// y la cantidad de gazapos en el parto, a mayor cantidad,
-				// mayor probabilidad.
-				// -->Generar cantidad de machos y hembras respecto a los sobrevivientes.
-				// -->Agregar machos y hembras a la lista correspondiente.
-				// -->Quitar estado de embarazo, poner estado de lactancia.
-				// -->Calcular celo.
-				// -->Días de lactancia: 4 semanas.
-				//
+				
 				// -->Si está lactando:
 				// -->Verificar lactancia y embarazo: Si la coneja tiene en 1 los días de
 				// lactancia
