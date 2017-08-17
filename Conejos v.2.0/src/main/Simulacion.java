@@ -111,15 +111,23 @@ public class Simulacion {
 					hembras.get(j).setEmbarazo(embarazo());
 					if (hembras.get(j).isEmbarazo()) {
 						hembras.get(j).setCelo(false);
-						hembras.get(j).setGazapos(0);// aqui enviamos el numero de gazapos segun randome 4 - 8 si la
-														// coneja tiene de 2 a 5 años
-						hembras.get(j).setTiempoGestacion(0);// radom gestacion 98% 31 días --- 28 a 35 días
+						if (hembras.get(j).getEdad()>=(2*365)&&hembras.get(j).getEdad()<=(5*365)) {
+							hembras.get(j).setGazapos(probabilidad.generarAleatorio(4, 8));// aqui enviamos el numero de gazapos segun randome 4 - 8 si la
+						}
+						if (hembras.get(j).getEdad()<(2*365)) {
+							hembras.get(j).setGazapos(probabilidad.generarAleatorio(6, 8));
+						}
+						if (hembras.get(j).getEdad()>(5*365)) {
+							hembras.get(j).setGazapos(probabilidad.generarAleatorio(4, 6));
+						}
+						//hay q hacer un random diferente para el 98% de probabilidad para 31
+						hembras.get(j).setTiempoGestacion(probabilidad.generarAleatorio(28, 35));// radom gestacion 98% 31 días --- 28 a 35 días
 																// dependiendo del numero de gazapos
 					}
 
 					if (!hembras.get(j).isEmbarazo()) {
 						hembras.get(j).setCelo(false);
-						hembras.get(j).setDiasCelo(0);// random dias de celo
+						hembras.get(j).setDiasCelo(probabilidad.generarAleatorio(14, 16));// random dias de celo
 					}
 
 				}
