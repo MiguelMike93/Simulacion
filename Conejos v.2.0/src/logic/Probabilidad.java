@@ -1,11 +1,19 @@
 package logic;
 
+import java.util.Random;
+
 public class Probabilidad {
-	
+	 /**
+	  * 1 -> Normal
+	  * 2 -> Binomial
+	  * 3 -> Otra
+	  */
 	private int distribucion;
+	private Random generator;
 	
 	public Probabilidad(int distribucion) {
 		this.distribucion = distribucion;
+		generator =  new Random();
 	}
 	
 	/*
@@ -32,8 +40,19 @@ public class Probabilidad {
 	 * Metodo encargado de generar un numero aleatorio respecto a la distribucion normal.
 	 */
 	private int distribucionNormal(int menor, int mayor) {
-		// TODO Auto-generated method stub
-		return 0;
+		int delay = -1;
+		double val = -1;
+		boolean flag = false;
+		while (flag == false) {
+			val = (generator.nextGaussian()*(mayor - menor + 1) + menor) + ((mayor + menor)/2);
+			delay = (int) Math.round(val);
+			System.out.println(delay);
+			if((delay >= menor) && (delay <= mayor)) {
+				flag = true;
+			}	
+		}		
+		return delay;
+		
 	}
 	
 	/*
@@ -60,5 +79,8 @@ public class Probabilidad {
 		this.distribucion = distribucion;
 	}
 	
-	
+	public static void main(String[] args) {
+		Probabilidad p = new Probabilidad(1);
+		p.generarAleatorio(31, 35);
+	}
 }
