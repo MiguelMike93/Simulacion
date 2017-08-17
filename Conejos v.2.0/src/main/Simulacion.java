@@ -3,16 +3,19 @@ package main;
 import java.util.ArrayList;
 
 import logic.Conejo;
+import logic.Probabilidad;
 
 public class Simulacion {
 	
 	private int tiempoEstudio;
+	private Probabilidad probabilidad;
 	private ArrayList<Conejo> machos, hembras;
 	
-	public Simulacion(int tiempoEstudio, int machos, int hembras, int edadMachos, int edadHembras) {
+	public Simulacion(int tiempoEstudio, int machos, int hembras, int edadMachos, int edadHembras, int distribucion ) {
 		this.tiempoEstudio = tiempoEstudio;
 		this.machos = new ArrayList<>();
 		this.hembras = new ArrayList<>();
+		probabilidad= new Probabilidad(distribucion);
 		crearMachos(machos, edadMachos);
 		crearHembras(hembras, edadHembras);
 	}
@@ -20,7 +23,7 @@ public class Simulacion {
 	private void crearMachos(int cantidad, int edad) {
 		for (int i = 0; i < cantidad; i++) {
 			Conejo conejo = new Conejo(edad);
-			//--> Generar aleatoriamente el tiempo en que va a madurar el conejo (4 - 8 meses).
+			probabilidad.generarAleatorio(120, 240);
 			machos.add(conejo);
 		}
 	}
@@ -28,7 +31,7 @@ public class Simulacion {
 	private void crearHembras(int cantidad, int edad) {
 		for (int i = 0; i < cantidad; i++) {
 			Conejo conejo = new Conejo(edad);
-			//--> Generar aleatoriamente el tiempo en que va a madurar el conejo (4 - 6 meses).
+			probabilidad.generarAleatorio(120, 180);
 			hembras.add(conejo);
 		}
 	}

@@ -3,11 +3,30 @@ package logic;
 public class Conejo {
 
 	private boolean madurez, celo, lactancia, embarazo;
-	private int edad, edadMadurez, diasCelo, tiempoGestacion, gazapos;
+	private int edad, edadMadurez, diasCelo, diasLactancia, tiempoGestacion, gazapos;
 	
 	public Conejo(int edad) {
 		this.edad = edad;
+		this.madurez=false;
+		this.celo=false;
+		this.lactancia=false;
+		this.embarazo=false;
+		this.edadMadurez=0;// es el random FALTA POR HACER 
+		this.diasCelo=0;// es el random FALTA POR HACER
+		this.diasLactancia=0;// es el random FALTA POR HACER
+		this.tiempoGestacion=0;// es el random FALTA POR HACER	
+		this.gazapos=0;//es el random FALTA POR HACER
 	}
+	
+	public void reducirDia() {
+		if(diasCelo>0)diasCelo-=1;
+		if(diasLactancia>0)diasLactancia-=1;
+		if(tiempoGestacion>0)tiempoGestacion-=1;
+		if(gazapos>0)gazapos-=1;
+	}
+	
+	
+//----------------------------------------------------GET Y SET ---------------------------------------------
 
 	public boolean isMadurez() {
 		return madurez;
@@ -81,6 +100,13 @@ public class Conejo {
 		this.gazapos = gazapos;
 	}
 	
+	public int getDiasLactancia() {
+		return diasLactancia;
+	}
+	
+	public void setDiasLactancia(int diasLactancia) {
+		this.diasLactancia = diasLactancia;
+	}
 	
 	
 	
