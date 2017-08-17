@@ -45,14 +45,7 @@ public class Simulacion {
 		}
 	}
 	
-	private Conejo verificarEdadMuerte(Conejo conejo) {
-		Conejo conejoMatar = null;
-		if (conejo.getEdad()==(365*15)) {
-			conejoMatar=conejo;
-		}return conejoMatar;
-	}
-	
-	
+		
 	private boolean verificarSiHayMachosDisponibles() {
 		boolean siHayMachos=false;
 		for (int i = 0; i < machos.size(); i++) {
@@ -70,8 +63,6 @@ public class Simulacion {
 			for (int j = 0; j < machos.size(); j++) {
 				verificarMadurez(machos.get(j));
 				machos.get(j).setEdad(machos.get(j).getEdad()+1);//Aumenta la edad del conejo.
-				Conejo conejo=verificarEdadMuerte(machos.get(j));
-				//si el conejo no es apto para matar pues solo retorna un conejo nulo
 			}
 			//Bucle de conejos hembra
 			for (int j = 0; j < hembras.size(); j++) {
@@ -80,8 +71,6 @@ public class Simulacion {
 					hembras.get(j).setDiasCelo(0);//--> se envian los dias del celo respecto al metodo
 					//de calcular aleatoriamente 
 				}
-				//--> Calcular celo: depende de si ya maduró, si los días de celo son iguales a 0 
-				//						y si no está embarazada.
 				//--> Verificar celo: Si está en celo: 
 				//		--> Mediante random decidir si queda embarazada o no.
 				//		--> Si queda embarazada: 
