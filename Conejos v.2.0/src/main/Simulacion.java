@@ -42,6 +42,23 @@ public class Simulacion {
 		}
 	}
 	
+
+	private void verificarLactancia(Conejo conejo) {
+		if (conejo.getDiasLactancia()==1 && conejo.isEmbarazo()) {
+			conejo.setDiasLactancia(8);
+		}
+	}
+	
+		
+	private boolean verificarSiHayMachosDisponibles() {
+		boolean siHayMachos=false;
+		for (int i = 0; i < machos.size(); i++) {
+			if (machos.get(i).isMadurez()) {
+				siHayMachos=true;
+				break;
+			}
+		}return siHayMachos;
+	}
 	
 	public void simular() {
 		//Bucle de los dias de estudio
@@ -55,8 +72,10 @@ public class Simulacion {
 			//Bucle de conejos hembra
 			for (int j = 0; j < hembras.size(); j++) {
 				verificarMadurez(hembras.get(j));
-				//--> Calcular celo: depende de si ya maduró, si los días de celo son iguales a 0 
-				//						y si no está embarazada.
+				if (hembras.get(j).isMadurez()&&hembras.get(j).getDiasCelo()==0&&!hembras.get(j).isEmbarazo()) {
+					hembras.get(j).setDiasCelo(0);//--> se envian los dias del celo respecto al metodo
+					//de calcular aleatoriamente 
+				}
 				//--> Verificar celo: Si está en celo: 
 				//		--> Mediante random decidir si queda embarazada o no.
 				//		--> Si queda embarazada: 
@@ -83,12 +102,23 @@ public class Simulacion {
 				//		-->Verificar lactancia y embarazo: Si la coneja tiene en 1 los días de lactancia
 				//										y está embarazada agregar 1 semana de lactancia.
 				//
+				if (hembras.get(j).isLactancia()) {
+					verificarLactancia(hembras.get(i));
+				}
+				
+				hembras.get(j).reducirDia();
+				hembras.get(j).setEdad(hembras.get(j).getEdad()+1);
+				if(hembras.get(j).getEdad()==5475)hembras.remove(hembras.get(j));//matar(hembras.get(j)) utlizando el metodo				
 				//-->Reducir días: Metodo que reduzca los días de todas los posibles estados 
 				//					siempre y cuando el numero de días sea mayor a 0.
 				//-->Aumentar edad coneja;
 			}
 		}
 	}
-	
+	public void matar(Conejo conejo) {
+		if(machos.contains(conejo)) {
+			machos.remove(conejo);
+		}else hembras.remove(conejo);
+	}
 	
 }
