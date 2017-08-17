@@ -47,6 +47,21 @@ public class Simulacion {
 		return conejoMatar;
 	}
 	
+	
+	private boolean verificarSiHayMachosDisponibles() {
+		boolean siHayMachos=false;
+		
+		for (int i = 0; i < machos.size(); i++) {
+			if (machos.get(i).isMadurez()) {
+				siHayMachos=true;
+				break;
+			}
+		}
+		
+		return siHayMachos;
+
+	}
+	
 	public void simular() {
 		//Bucle de los dias de estudio
 		for (int i = 0; i < tiempoEstudio; i++) {
