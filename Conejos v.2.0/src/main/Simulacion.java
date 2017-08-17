@@ -39,27 +39,28 @@ public class Simulacion {
 		}
 	}
 	
+	private void verificarLactancia(Conejo conejo) {
+		if (conejo.getDiasLactancia()==1 && conejo.isEmbarazo()) {
+			conejo.setDiasLactancia(8);
+		}
+	}
+	
 	private Conejo verificarEdadMuerte(Conejo conejo) {
 		Conejo conejoMatar = null;
 		if (conejo.getEdad()==(365*15)) {
 			conejoMatar=conejo;
-		}
-		return conejoMatar;
+		}return conejoMatar;
 	}
 	
 	
 	private boolean verificarSiHayMachosDisponibles() {
 		boolean siHayMachos=false;
-		
 		for (int i = 0; i < machos.size(); i++) {
 			if (machos.get(i).isMadurez()) {
 				siHayMachos=true;
 				break;
 			}
-		}
-		
-		return siHayMachos;
-
+		}return siHayMachos;
 	}
 	
 	public void simular() {
@@ -106,13 +107,23 @@ public class Simulacion {
 				//-->Si está lactando:
 				//		-->Verificar lactancia y embarazo: Si la coneja tiene en 1 los días de lactancia
 				//										y está embarazada agregar 1 semana de lactancia.
-				//
+				if (hembras.get(j).isLactancia()) {
+					verificarLactancia(hembras.get(i));
+				}
+				
+				hembras.get(j).reducirDia();
+				hembras.get(j).setEdad(hembras.get(j).getEdad()+1);
+				if(hembras.get(j).getEdad()==5475)hembras.remove(hembras.get(j));//matar(hembras.get(j)) utlizando el metodo				
 				//-->Reducir días: Metodo que reduzca los días de todas los posibles estados 
 				//					siempre y cuando el numero de días sea mayor a 0.
 				//-->Aumentar edad coneja;
 			}
 		}
 	}
-	
+	public void matar(Conejo conejo) {
+		if(machos.contains(conejo)) {
+			machos.remove(conejo);
+		}else hembras.remove(conejo);
+	}
 	
 }
