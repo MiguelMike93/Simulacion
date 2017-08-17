@@ -7,7 +7,26 @@ public class Conejo {
 	
 	public Conejo(int edad) {
 		this.edad = edad;
+		this.madurez=false;
+		this.celo=false;
+		this.lactancia=false;
+		this.embarazo=false;
+		this.edadMadurez=0;// es el random FALTA POR HACER 
+		this.diasCelo=0;// es el random FALTA POR HACER
+		this.diasLactancia=0;// es el random FALTA POR HACER
+		this.tiempoGestacion=0;// es el random FALTA POR HACER	
+		this.gazapos=0;//es el random FALTA POR HACER
 	}
+	
+	public void reducirDia() {
+		if(diasCelo>0)diasCelo-=1;
+		if(diasLactancia>0)diasLactancia-=1;
+		if(tiempoGestacion>0)tiempoGestacion-=1;
+		if(gazapos>0)gazapos-=1;
+	}
+	
+	
+//----------------------------------------------------GET Y SET ---------------------------------------------
 
 	public boolean isMadurez() {
 		return madurez;
