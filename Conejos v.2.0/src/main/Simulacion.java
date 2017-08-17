@@ -106,12 +106,20 @@ public class Simulacion {
 				if (hembras.get(j).isLactancia()) {
 					verificarLactancia(hembras.get(i));
 				}
+				
+				hembras.get(j).reducirDia();
+				hembras.get(j).setEdad(hembras.get(j).getEdad()+1);
+				if(hembras.get(j).getEdad()==5475)hembras.remove(hembras.get(j));//matar(hembras.get(j)) utlizando el metodo				
 				//-->Reducir días: Metodo que reduzca los días de todas los posibles estados 
 				//					siempre y cuando el numero de días sea mayor a 0.
 				//-->Aumentar edad coneja;
 			}
 		}
 	}
-	
+	public void matar(Conejo conejo) {
+		if(machos.contains(conejo)) {
+			machos.remove(conejo);
+		}else hembras.remove(conejo);
+	}
 	
 }
