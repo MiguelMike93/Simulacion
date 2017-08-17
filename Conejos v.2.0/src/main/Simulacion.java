@@ -51,7 +51,7 @@ public class Simulacion {
 			}
 			//Bucle de conejos hembra
 			for (int j = 0; j < hembras.size(); j++) {
-				verificarMadurez(machos.get(j));
+				verificarMadurez(hembras.get(j));
 				//--> Calcular celo: depende de si ya maduró, si los días de celo son iguales a 0 
 				//						y si no está embarazada.
 				//--> Verificar celo: Si está en celo: 
