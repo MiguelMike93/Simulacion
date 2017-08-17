@@ -3,7 +3,7 @@ package logic;
 public class Conejo {
 
 	private boolean madurez, celo, lactancia, embarazo;
-	private int edad, edadMadurez, diasCelo, tiempoGestacion, gazapos;
+	private int edad, edadMadurez, diasCelo, diasLactancia, tiempoGestacion, gazapos;
 	
 	public Conejo(int edad) {
 		this.edad = edad;
@@ -81,6 +81,13 @@ public class Conejo {
 		this.gazapos = gazapos;
 	}
 	
+	public int getDiasLactancia() {
+		return diasLactancia;
+	}
+	
+	public void setDiasLactancia(int diasLactancia) {
+		this.diasLactancia = diasLactancia;
+	}
 	
 	
 	
