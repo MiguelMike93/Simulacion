@@ -4,6 +4,7 @@ public class Probabilidad {
 	
 	private int distribucion;
 	
+	
 	public Probabilidad(int distribucion) {
 		this.distribucion = distribucion;
 	}

@@ -11,18 +11,18 @@ public class Conejo {
 		this.celo=false;
 		this.lactancia=false;
 		this.embarazo=false;
-		this.edadMadurez=0;// es el random FALTA POR HACER 
-		this.diasCelo=0;// es el random FALTA POR HACER
-		this.diasLactancia=0;// es el random FALTA POR HACER
-		this.tiempoGestacion=0;// es el random FALTA POR HACER	
-		this.gazapos=0;//es el random FALTA POR HACER
+		this.edadMadurez=-1;// es el random FALTA POR HACER 
+		this.diasCelo=-1;// es el random FALTA POR HACER
+		this.diasLactancia=-1;// es el random FALTA POR HACER
+		this.tiempoGestacion=-1;// es el random FALTA POR HACER	
+		this.gazapos=-1;//es el random FALTA POR HACER
 	}
 	
 	public void reducirDia() {
-		if(diasCelo>0)diasCelo-=1;
-		if(diasLactancia>0)diasLactancia-=1;
-		if(tiempoGestacion>0)tiempoGestacion-=1;
-		if(gazapos>0)gazapos-=1;
+		if(diasCelo>-1)diasCelo-=1;
+		if(diasLactancia>-1)diasLactancia-=1;
+		if(tiempoGestacion>-1)tiempoGestacion-=1;
+		if(gazapos>-1)gazapos-=1;
 	}
 	
 	
