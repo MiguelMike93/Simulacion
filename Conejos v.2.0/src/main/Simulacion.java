@@ -70,6 +70,17 @@ public class Simulacion {
 		return embarazar;
 
 	}
+	
+	private void calcularCelo(Conejo conejo) {
+		conejo.setDiasCelo(probabilidad.generarAleatorio(14, 16));
+	}
+	
+	private void generarHijos(Conejo conejo) {
+		int machos = probabilidad.generarAleatorio(0, conejo.getGazapos());
+		int hembras = conejo.getGazapos()-machos;
+		crearMachos(machos, 0);
+		crearHembras(hembras, 0);
+	}
 
 	public void simular() {
 		// Bucle de los dias de estudio
@@ -83,7 +94,7 @@ public class Simulacion {
 			for (int j = 0; j < hembras.size(); j++) {
 				verificarMadurez(hembras.get(j));
 				if (hembras.get(j).isMadurez() && hembras.get(j).getDiasCelo() == -1 && !hembras.get(j).isEmbarazo()) {
-					hembras.get(j).setDiasCelo(0);// --> se envian los dias del celo respecto al metodo
+					calcularCelo(hembras.get(j));// --> se envian los dias del celo respecto al metodo
 					// de calcular aleatoriamente
 				}
 				// --> Verificar celo: Si está en celo:
@@ -112,7 +123,24 @@ public class Simulacion {
 					}
 
 				}
-
+				if (hembras.get(j).isEmbarazo()) {
+					//		-->Verificar parto: Si los dias del parto son iguales a 0:
+					//					-->Calcular mortalidad de gazapos: 
+					//							en promedio 2, pero varia respecto a la
+					//							edad de la coneja, entre mÃ¡s joven mÃ¡s probabilidad de morir,
+					//							y la cantidad de gazapos en el parto, a mayor cantidad,
+					//							mayor probabilidad.
+					//					-->Generar cantidad de machos y hembras respecto a los sobrevivientes.
+					//					-->Agregar machos y hembras a la lista correspondiente.
+					//					-->Quitar estado de embarazo, poner estado de lactancia.
+					//					-->Calcular celo.
+					//					-->DÃ­as de lactancia: 4 semanas.
+					generarHijos(hembras.get(j));
+					hembras.get(j).setEmbarazo(false);
+					hembras.get(j).setLactancia(true);
+					calcularCelo(hembras.get(j));
+					hembras.get(j).setDiasLactancia(28);
+				}
 				// -->Si está embarazada:
 				// -->Verificar parto: Si los dias del parto son iguales a 0:
 				// -->Calcular mortalidad de gazapos:
