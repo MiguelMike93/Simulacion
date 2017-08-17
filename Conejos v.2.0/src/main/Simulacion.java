@@ -39,6 +39,13 @@ public class Simulacion {
 		}
 	}
 	
+	private Conejo verificarEdadMuerte(Conejo conejo) {
+		Conejo conejoMatar = null;
+		if (conejo.getEdad()==(365*15)) {
+			conejoMatar=conejo;
+		}
+		return conejoMatar;
+	}
 	
 	public void simular() {
 		//Bucle de los dias de estudio
@@ -47,7 +54,8 @@ public class Simulacion {
 			for (int j = 0; j < machos.size(); j++) {
 				verificarMadurez(machos.get(j));
 				machos.get(j).setEdad(machos.get(j).getEdad()+1);//Aumenta la edad del conejo.
-				//-->Verificar edad del conejo para matarlo. Edad de muerte (15 años).
+				Conejo conejo=verificarEdadMuerte(machos.get(j));
+				//si el conejo no es apto para matar pues solo retorna un conejo nulo
 			}
 			//Bucle de conejos hembra
 			for (int j = 0; j < hembras.size(); j++) {
