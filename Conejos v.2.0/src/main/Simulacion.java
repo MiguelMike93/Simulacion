@@ -20,11 +20,12 @@ public class Simulacion {
 							// (verano/invierno)
 	private int area;// faltava este atributo
 
-	public Simulacion(int tiempoEstudio, int machos, int hembras, int edadMachos, int edadHembras, int distribucion) {
+	public Simulacion(int tiempoEstudio, int machos, int hembras, int edadMachos, int edadHembras, int distribucion, int area) {
 		this.tiempoEstudio = tiempoEstudio;
 		this.machos = new ArrayList<>();
 		this.hembras = new ArrayList<>();
 		probabilidad = new Probabilidad(distribucion);
+		this.area=area;
 		crearMachos(machos, edadMachos);
 		crearHembras(hembras, edadHembras);
 	}
@@ -234,28 +235,28 @@ public class Simulacion {
 				hembras.get(j).setEdad(hembras.get(j).getEdad() + 1);
 
 				// metodos para evaluar matanza por caza y clima
-//				if (estacion == 0) {
-//					estacion = 3 * 365;
-//					if (caza) {
-//						caza = !caza;
-//						matarPorTemporadaDeCaza();
-//					} else
-//						matarPorClima();
-//				} else {
-//					caza = !caza;
-//					estacion--;
-//				}
+				if (estacion == 0) {
+					estacion = 3 * 365;
+					if (caza) {
+						caza = !caza;
+						matarPorTemporadaDeCaza();
+					} else
+						matarPorClima();
+				} else {
+					caza = !caza;
+					estacion--;
+				}
 				
 
 			}
-//			if (mes>0) {
-//				mes-=1;
-//			}
-//			if (mes==0) {
-//				matarPorEnfermedad();
-//				matarPorDepredador();
-//				mes=30;
-//			}
+			if (mes>0) {
+				mes-=1;
+			}
+			if (mes==0) {
+				matarPorEnfermedad();
+				matarPorDepredador();
+				mes=30;
+			}
 			System.out.println("Hembras "+hembras.size()+" machos "+machos.size()+"  Dia "+i);
 		}
 	}
