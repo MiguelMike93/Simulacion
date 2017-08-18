@@ -182,7 +182,7 @@ public class Simulacion {
 							hembras.get(j).setGazapos(probabilidad.generarAleatorio(4, 6));
 						}
 						// hay q hacer un random diferente para el 98% de probabilidad para 31
-						hembras.get(j).setTiempoGestacion(probabilidad.generarAleatorio(28, 35));// radom gestacion 98%
+						hembras.get(j).setTiempoGestacion(probabilidad.diasConcepcion(hembras.get(j).getGazapos()));// radom gestacion 98%
 						// 31 dÃ­as --- 28 a
 						// 35 dÃ­as
 						// dependiendo del numero de gazapos
