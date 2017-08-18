@@ -11,6 +11,8 @@ public class Simulacion {
 	private int tiempoEstudio;
 	private ArrayList<Conejo> machos, hembras;
 	private Probabilidad probabilidad;
+	private int numeroDeMuertosMachos=0;
+	private int numeroDeMuertosHembras=0;
 
 	public Simulacion(int tiempoEstudio, int machos, int hembras, int edadMachos, int edadHembras, int distribucion) {
 		this.tiempoEstudio = tiempoEstudio;
@@ -53,10 +55,21 @@ public class Simulacion {
 		int siHayMachos = 0;
 		for (int i = 0; i < machos.size(); i++) {
 			if (machos.get(i).isMadurez()) {
-				siHayMachos ++;
+				siHayMachos++;
 			}
 		}
+		System.out.println(siHayMachos+"  Machos-------------------------------");
 		return siHayMachos;
+	}
+	
+	private int hembrasAparear() {
+		int hembrasReproducir = 0;
+		for (int i = 0; i < hembras.size(); i++) {
+			if (hembras.get(i).isMadurez()) {
+				hembrasReproducir++;
+			}
+		}
+		return (int) (hembrasReproducir/2);
 	}
 
 	private boolean embarazo() {
@@ -91,12 +104,12 @@ public class Simulacion {
 		}
 		// Bucle para borrar a las conejas de la lista
 		for (int i = 0; i < hembras; i++) {
-			int pos = probabilidad.generarAleatorio(0, this.hembras.size());
+			int pos = probabilidad.generarAleatorio(0, this.hembras.size() - 1);
 			this.hembras.remove(pos);
 		}
 		// Bucle para borrar a los conejos de la lista
 		for (int i = 0; i < machos; i++) {
-			int pos = probabilidad.generarAleatorio(0, this.machos.size());
+			int pos = probabilidad.generarAleatorio(0, this.machos.size() - 1);
 			this.machos.remove(pos);
 		}
 	}
@@ -112,23 +125,24 @@ public class Simulacion {
 	public void alimentarConejos() {
 		int alimentar = 0;
 		for (int i = 0; i < machos.size(); i++) {
-			if (machos.get(i).getPeso() < 8000) {
-				alimentar = probabilidad.generarAleatorio(10, 30) * 3;
+//			if (machos.get(i).getPeso() < 8000) {
+				alimentar = probabilidad.generarAleatorio(10, 30) * 4;
 				machos.get(i).setPeso(machos.get(i).getPeso() + alimentar);
-			}
+//			}
 		}
 		for (int j = 0; j < hembras.size(); j++) {
-			if (hembras.get(j).getPeso() < 8000) {
-				alimentar = probabilidad.generarAleatorio(10, 30) * 3;
+//			if (hembras.get(j).getPeso() < 8000) {
+				alimentar = probabilidad.generarAleatorio(10, 30) * 4;
 				hembras.get(j).setPeso(hembras.get(j).getPeso() + alimentar);
-			}
+//			}
 		}
 	}
 
 	public void simular() {
+		int mes = 30;
 		// Bucle de los dias de estudio
 		for (int i = 0; i < tiempoEstudio; i++) {
-			int hembrasAreproducir=verificarSiHayMachos()*5;
+			int hembrasAreproducir = hembrasAparear();
 			// Bucle de conejos macho
 			for (int j = 0; j < machos.size(); j++) {
 				verificarMadurez(machos.get(j));
@@ -137,6 +151,7 @@ public class Simulacion {
 				// matar por peso
 				if (machos.get(j).getPeso() >= 8000 && machos.get(j).getEdad() >= (30 * 3)) {
 					machos.remove(j);
+					numeroDeMuertosMachos++;
 				}
 			}
 			// Bucle de conejos hembra
@@ -149,17 +164,16 @@ public class Simulacion {
 				// -Generar el tiempo de gestaciÃ³n de los conejos:
 				// 98% 31 dÃ­as --- 28 a 35 dÃ­as dependiendo del numero de gazapos.
 				if (hembras.get(j).getDiasCelo() == 0) {
-					
-					if (hembrasAreproducir>0) {
-//						se duda dejar el metodo de probabilidad
+
+					if (hembrasAreproducir > 0) {
+						// se duda dejar el metodo de probabilidad
 						hembras.get(j).setEmbarazo(true);
 						hembrasAreproducir--;
 					}
-					if (hembrasAreproducir==0) {
+					if (hembrasAreproducir == 0) {
 						hembras.get(j).setEmbarazo(false);
 					}
-					
-					
+
 					if (hembras.get(j).isEmbarazo()) {
 						hembras.get(j).setCelo(false);
 						if (hembras.get(j).getEdad() >= (2 * 365) && hembras.get(j).getEdad() <= (5 * 365)) {
@@ -169,7 +183,9 @@ public class Simulacion {
 							hembras.get(j).setGazapos(probabilidad.generarAleatorio(4, 6));
 						}
 						// hay q hacer un random diferente para el 98% de probabilidad para 31
-						hembras.get(j).setTiempoGestacion(probabilidad.diasConcepcion(hembras.get(j).getGazapos()));// radom gestacion 98%
+						hembras.get(j).setTiempoGestacion(probabilidad.diasConcepcion(hembras.get(j).getGazapos()));// radom
+																													// gestacion
+																													// 98%
 						// 31 dÃ­as --- 28 a
 						// 35 dÃ­as
 						// dependiendo del numero de gazapos
@@ -203,7 +219,7 @@ public class Simulacion {
 				// lactancia
 				// y estÃ¡ embarazada agregar 1 semana de lactancia.
 				if (hembras.get(j).isLactancia()) {
-					verificarLactancia(hembras.get(i));
+					verificarLactancia(hembras.get(j));
 				}
 
 				hembras.get(j).reducirDia();
@@ -215,9 +231,21 @@ public class Simulacion {
 
 				if (hembras.get(j).getPeso() >= 8000 && hembras.get(j).getEdad() >= (30 * 3)) {
 					hembras.remove(j);
+					numeroDeMuertosHembras++;
 				}
 			}
+			
+			alimentarConejos();
+			if (mes > 0) {
+				mes -= 1;
+			}
+			if (mes == 0) {
+				muertePorEnfermedad();
+				mes = 30;
+			}
+			System.out.println("Hembras " + hembras.size() + "  Machos  " + machos.size() + "  Dia  " + i);
 		}
+		System.out.println("Machos muertos "+numeroDeMuertosMachos+" Hembras muertas  "+numeroDeMuertosHembras);
 	}
 
 	public void matar(Conejo conejo) {
@@ -226,16 +254,5 @@ public class Simulacion {
 		} else
 			hembras.remove(conejo);
 	}
-
-	
-
-
-	// se reproducede acuerdo a los machos donde 1 macho puede reproducirce con 5
-	// hembras
-	private void reproducir() {
-		// TODO Auto-generated method stub
-
-	}
-
 
 }
