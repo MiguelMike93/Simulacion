@@ -4,6 +4,7 @@ public class Conejo {
 
 	private boolean madurez, celo, lactancia, embarazo;
 	private int edad, edadMadurez, diasCelo, diasLactancia, tiempoGestacion, gazapos;
+	private int peso;
 	
 	public Conejo(int edad) {
 		this.edad = edad;
@@ -16,7 +17,8 @@ public class Conejo {
 		this.diasLactancia=-1;// es el random FALTA POR HACER
 		this.tiempoGestacion=-1;// es el random FALTA POR HACER	
 		this.gazapos=-1;//es el random FALTA POR HACER
-		int peso=0;
+		this.peso=300;//random entre 300 y 400
+	
 	}
 	
 	public void reducirDia() {
@@ -107,6 +109,14 @@ public class Conejo {
 	
 	public void setDiasLactancia(int diasLactancia) {
 		this.diasLactancia = diasLactancia;
+	}
+
+	public int getPeso() {
+		return peso;
+	}
+
+	public void setPeso(int peso) {
+		this.peso = peso;
 	}
 	
 	
