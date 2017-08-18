@@ -81,7 +81,13 @@ public class Simulacion {
 		crearMachos(machos, 0);
 		crearHembras(hembras, 0);
 	}
-
+	//poblacion ideal de conejos dependiendo el area
+	//area establecida 3 conejos* 5 metros cuadrados
+	public int calcularPoblacionIdeal(int area){
+		int poblacion=0;
+		poblacion=(3*area)/5;
+		return poblacion;
+	}
 	public void simular() {
 		// Bucle de los dias de estudio
 		for (int i = 0; i < tiempoEstudio; i++) {
@@ -97,15 +103,15 @@ public class Simulacion {
 					calcularCelo(hembras.get(j));// --> se envian los dias del celo respecto al metodo
 					// de calcular aleatoriamente
 				}
-				// --> Verificar celo: Si está en celo:
+				// --> Verificar celo: Si estÃ¡ en celo:
 				// --> Mediante random decidir si queda embarazada o no.
 				// --> Si queda embarazada:
 				// -Quitar celo,
-				// -Generar el numero de gazapos: de 4 - 8 si la coneja tiene de 2 a 5 años.
-				// -Generar el tiempo de gestación de los conejos:
-				// 98% 31 días --- 28 a 35 días dependiendo del numero de gazapos.
+				// -Generar el numero de gazapos: de 4 - 8 si la coneja tiene de 2 a 5 aÃ±os.
+				// -Generar el tiempo de gestaciÃ³n de los conejos:
+				// 98% 31 dÃ­as --- 28 a 35 dÃ­as dependiendo del numero de gazapos.
 				// -->Sino queda: -Quitar celo
-				// -Calcular días para el celo.
+				// -Calcular dÃ­as para el celo.
 				if (hembras.get(j).getDiasCelo() == 0) {
 
 					hembras.get(j).setEmbarazo(embarazo());
@@ -124,8 +130,8 @@ public class Simulacion {
 						}
 						// hay q hacer un random diferente para el 98% de probabilidad para 31
 						hembras.get(j).setTiempoGestacion(probabilidad.generarAleatorio(28, 35));// radom gestacion 98%
-																									// 31 días --- 28 a
-																									// 35 días
+																									// 31 dÃ­as --- 28 a
+																									// 35 dÃ­as
 						// dependiendo del numero de gazapos
 					}
 
@@ -140,14 +146,14 @@ public class Simulacion {
 						// -->Verificar parto: Si los dias del parto son iguales a 0:
 						// -->Calcular mortalidad de gazapos:
 						// en promedio 2, pero varia respecto a la
-						// edad de la coneja, entre mÃ¡s joven mÃ¡s probabilidad de morir,
+						// edad de la coneja, entre mÃƒÂ¡s joven mÃƒÂ¡s probabilidad de morir,
 						// y la cantidad de gazapos en el parto, a mayor cantidad,
 						// mayor probabilidad.
 						// -->Generar cantidad de machos y hembras respecto a los sobrevivientes.
 						// -->Agregar machos y hembras a la lista correspondiente.
 						// -->Quitar estado de embarazo, poner estado de lactancia.
 						// -->Calcular celo.
-						// -->DÃ­as de lactancia: 4 semanas.
+						// -->DÃƒÂ­as de lactancia: 4 semanas.
 						generarHijos(hembras.get(j));
 						hembras.get(j).setEmbarazo(false);
 						hembras.get(j).setLactancia(true);
@@ -156,10 +162,10 @@ public class Simulacion {
 					}
 				}
 
-				// -->Si está lactando:
-				// -->Verificar lactancia y embarazo: Si la coneja tiene en 1 los días de
+				// -->Si estÃ¡ lactando:
+				// -->Verificar lactancia y embarazo: Si la coneja tiene en 1 los dÃ­as de
 				// lactancia
-				// y está embarazada agregar 1 semana de lactancia.
+				// y estÃ¡ embarazada agregar 1 semana de lactancia.
 				if (hembras.get(j).isLactancia()) {
 					verificarLactancia(hembras.get(i));
 				}
@@ -168,8 +174,8 @@ public class Simulacion {
 				hembras.get(j).setEdad(hembras.get(j).getEdad() + 1);
 				if (hembras.get(j).getEdad() == 5475)
 					hembras.remove(hembras.get(j));// matar(hembras.get(j)) utlizando el metodo
-				// -->Reducir días: Metodo que reduzca los días de todas los posibles estados
-				// siempre y cuando el numero de días sea mayor a 0.
+				// -->Reducir dÃ­as: Metodo que reduzca los dÃ­as de todas los posibles estados
+				// siempre y cuando el numero de dÃ­as sea mayor a 0.
 				// -->Aumentar edad coneja;
 			}
 		}
@@ -207,7 +213,7 @@ public class Simulacion {
 		return area;
 	}
 
-	// se mata por caza en primavera y oto�o se sacrifica como maximo el numero de
+	// se mata por caza en primavera y otoño se sacrifica como maximo el numero de
 	// conejos que hagan falta para aproximarse a la poblacion ideal
 	private void matarPorTemporadaDeCaza() {
 
