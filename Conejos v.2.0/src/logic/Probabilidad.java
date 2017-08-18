@@ -78,7 +78,7 @@ public class Probabilidad {
 	private int distribucionBinomial(int menor, int mayor) {
 		setLevels((mayor - menor) + 1);
 		result = (levels / 3) + menor - 1;
-		result = (result * 2) + (result / 2);
+		result = result + ((mayor - menor)/3);
 		if(r.nextBoolean()) 
 			result ++;
 		for (int i = 0; i < levels; i++) {
@@ -102,7 +102,7 @@ public class Probabilidad {
 	private int distribucionOtra(int menor, int mayor) {
 		setLevels((mayor - menor) + 1);
 		result = (levels / 3) + menor - 1;
-		result = result - (result / 2);
+		result = result - ((mayor - menor)/3);
 		if(r.nextBoolean()) 
 			result ++;
 		for (int i = 0; i < levels; i++) {
@@ -128,7 +128,7 @@ public class Probabilidad {
 	 */
 	public  int diasConcepcion(int fetosEnGestacion) {
 		int result = 0;
-		if(r.nextInt(100)>98) {
+		if(r.nextInt(100)<98) {
 			result =  31;
 		}else {
 			if(fetosEnGestacion > 6) {
@@ -138,6 +138,21 @@ public class Probabilidad {
 			}
 		}return result;		
 	}
+	
+	
+	/**
+	 * 
+	 * @param porcentaje valor en porcentaje de 1 a 100 para determinar cuanta cantidad del parametro pTotal debe morir
+	 * @param poblacionT Poblacion total de la cual se evaluara la canidad de conejos que deben morir segun sea necesario
+	 * @return Numero de conejos que deben morir
+	 */
+	public int getNMuertos(int porcentaje, int poblacionT) {
+		double porcen = (double)porcentaje / 100;		
+		porcen = poblacionT * porcen;
+		return (int)Math.floor(porcen);
+	}
+	
+	
 	
 	private void test(int iteraciones, int menor, int mayor) {
 		setLevels((mayor - menor) + 1);
@@ -177,6 +192,10 @@ public class Probabilidad {
 	}
 	public static void main(String[] args) {
 		Probabilidad p = new Probabilidad(3);
-		p.test(100000,1,100);
+//		System.out.println(p.generarAleatorio(28, 35));
+//		System.out.println(p.distribucionBinomial(28, 35));
+//		System.out.println(p.getNMuertos(25, 500));
+		System.out.println("test dias concepcion->"+ p.diasConcepcion(4));
+		p.test(10000,1,100);
 	}
 }
