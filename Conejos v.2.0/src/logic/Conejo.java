@@ -22,7 +22,7 @@ public class Conejo {
 		if(diasCelo>-1)diasCelo-=1;
 		if(diasLactancia>-1)diasLactancia-=1;
 		if(tiempoGestacion>-1)tiempoGestacion-=1;
-		if(gazapos>-1)gazapos-=1;
+//		if(gazapos>-1)gazapos-=1;
 	}
 	
 	

@@ -155,6 +155,7 @@ public class Simulacion {
 
 	public void simular() {
 		// Bucle de los dias de estudio
+		int mes=30;
 		for (int i = 0; i < tiempoEstudio; i++) {
 			// Bucle de conejos macho
 			for (int j = 0; j < machos.size(); j++) {
@@ -177,9 +178,11 @@ public class Simulacion {
 						hembras.get(j).setCelo(false);
 						if (hembras.get(j).getEdad() >= (2 * 365) && hembras.get(j).getEdad() <= (5 * 365)) {
 							hembras.get(j).setGazapos(probabilidad.generarAleatorio(4, 8));// aqui enviamos el numero de
+//							System.out.println("aqui apenas "+hembras.get(j).getGazapos());
 						}
 						if (hembras.get(j).getEdad() < (2 * 365) || hembras.get(j).getEdad() > (5 * 365)) {
 							hembras.get(j).setGazapos(probabilidad.generarAleatorio(4, 6));
+//							System.out.println("aqui joven o vieja "+hembras.get(j).getGazapos());
 						}
 						// hay q hacer un random diferente para el 98% de probabilidad para 31
 						hembras.get(j).setTiempoGestacion(probabilidad.diasConcepcion(hembras.get(j).getGazapos()));// radom gestacion 98%
@@ -196,13 +199,17 @@ public class Simulacion {
 				}
 				if (hembras.get(j).isEmbarazo()) {
 					if (hembras.get(j).getTiempoGestacion() == 0) {
+//							System.out.println("1--- "+hembras.get(j).getGazapos());
 						if (hembras.get(j).getEdad() >= (2 * 365) && hembras.get(j).getEdad() <= (5 * 365)) {
 							int muertos = probabilidad.generarAleatorio(0, 2);
 							hembras.get(j).setGazapos(hembras.get(j).getGazapos() - muertos);
+//							System.out.println("2--- "+hembras.get(j).getGazapos());
 						}
 						if (hembras.get(j).getEdad() < (2 * 365)) {
-							int muertos = probabilidad.generarAleatorio(0, 4);
+							int muertos = probabilidad.generarAleatorio(0, 2);
+//							System.out.println("3--- "+hembras.get(j).getGazapos());
 							hembras.get(j).setGazapos(hembras.get(j).getGazapos() - muertos);
+//							System.out.println("4--- "+hembras.get(j).getGazapos());
 						}
 						generarHijos(hembras.get(j));
 						hembras.get(j).setEmbarazo(false);
@@ -216,7 +223,7 @@ public class Simulacion {
 				// lactancia
 				// y estÃ¡ embarazada agregar 1 semana de lactancia.
 				if (hembras.get(j).isLactancia()) {
-					verificarLactancia(hembras.get(i));
+					verificarLactancia(hembras.get(j));
 				}
 
 				hembras.get(j).reducirDia();
@@ -227,19 +234,29 @@ public class Simulacion {
 				hembras.get(j).setEdad(hembras.get(j).getEdad() + 1);
 
 				// metodos para evaluar matanza por caza y clima
-				if (estacion == 0) {
-					estacion = 3 * 365;
-					if (caza) {
-						caza = !caza;
-						matarPorTemporadaDeCaza();
-					} else
-						matarPorClima();
-				} else {
-					caza = !caza;
-					estacion--;
-				}
+//				if (estacion == 0) {
+//					estacion = 3 * 365;
+//					if (caza) {
+//						caza = !caza;
+//						matarPorTemporadaDeCaza();
+//					} else
+//						matarPorClima();
+//				} else {
+//					caza = !caza;
+//					estacion--;
+//				}
+				
 
 			}
+			if (mes>0) {
+				mes-=1;
+			}
+			if (mes==0) {
+				matarPorEnfermedad();
+				matarPorDepredador();
+				mes=30;
+			}
+			System.out.println("Hembras "+hembras.size()+" machos "+machos.size()+"  Dia "+i);
 		}
 	}
 
@@ -284,5 +301,6 @@ public class Simulacion {
 		}
 
 	}
+	
 
 }
