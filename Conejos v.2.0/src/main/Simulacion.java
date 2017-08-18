@@ -13,12 +13,13 @@ public class Simulacion {
 	private Probabilidad probabilidad;
 
 	/**
-	 * este es mi orden de estaciones: primavera verano otoño invierno 
+	 * este es mi orden de estaciones: primavera verano otoño invierno
 	 */
-	private int estacion; // se inicializa en 3 meses(365*3) cada tres meces se cambia de estacion 
-	private boolean caza;// true cuando es temporada de caza (primavera- otoño)/else matar por clima (verano/invierno)
+	private int estacion; // se inicializa en 3 meses(365*3) cada tres meces se cambia de estacion
+	private boolean caza;// true cuando es temporada de caza (primavera- otoño)/else matar por clima
+							// (verano/invierno)
 	private int area;// faltava este atributo
-	
+
 	public Simulacion(int tiempoEstudio, int machos, int hembras, int edadMachos, int edadHembras, int distribucion) {
 		this.tiempoEstudio = tiempoEstudio;
 		this.machos = new ArrayList<>();
@@ -83,26 +84,27 @@ public class Simulacion {
 	}
 
 	private void matarPorDepredador() {
-		//Se saca el 20% de los conejos en ese momento.
-		int veinte = (int)((int) (hembras.size()+machos.size())*0.2);
-		//Mediante el aleatorio se sacan la cantidad de conejos a morir.
+		// Se saca el 20% de los conejos en ese momento.
+		int veinte = (int) ((int) (hembras.size() + machos.size()) * 0.2);
+		// Mediante el aleatorio se sacan la cantidad de conejos a morir.
 		int machos = probabilidad.generarAleatorio(0, veinte);
-		//Las hembras son el sobrante de conejos a morir entre el veinte por ciento
-		//Y la cantidad de conejos que ya se eligieron.
+		// Las hembras son el sobrante de conejos a morir entre el veinte por ciento
+		// Y la cantidad de conejos que ya se eligieron.
 		int hembras = veinte - machos;
-		//Si la cantidad de machos a morir es mayor a la cantidad de conejos en ese momento
-		//Se vuelve a calcular la cantidad de conejos.
-		while(machos>this.machos.size()||hembras>this.hembras.size()) {
+		// Si la cantidad de machos a morir es mayor a la cantidad de conejos en ese
+		// momento
+		// Se vuelve a calcular la cantidad de conejos.
+		while (machos > this.machos.size() || hembras > this.hembras.size()) {
 			machos = probabilidad.generarAleatorio(0, veinte);
 			hembras = veinte - machos;
 		}
 
-		//Bucle para borrar a las conejas de la lista
+		// Bucle para borrar a las conejas de la lista
 		for (int i = 0; i < hembras; i++) {
 			int pos = probabilidad.generarAleatorio(0, this.hembras.size());
 			this.hembras.remove(pos);
 		}
-		//Bucle para borrar a los conejos de la lista
+		// Bucle para borrar a los conejos de la lista
 		for (int i = 0; i < machos; i++) {
 			int pos = probabilidad.generarAleatorio(0, this.machos.size());
 			this.machos.remove(pos);
@@ -110,25 +112,26 @@ public class Simulacion {
 	}
 
 	private void matarPorEnfermedad() {
-		//Se saca el 15% de los conejos en ese momento.
-		int quince = (int)((int) (hembras.size()+machos.size())*0.15);
-		//Mediante el aleatorio se sacan la cantidad de conejos a morir.
+		// Se saca el 15% de los conejos en ese momento.
+		int quince = (int) ((int) (hembras.size() + machos.size()) * 0.15);
+		// Mediante el aleatorio se sacan la cantidad de conejos a morir.
 		int machos = probabilidad.generarAleatorio(0, quince);
-		//Las hembras son el sobrante de conejos a morir entre el veinte por ciento
-		//Y la cantidad de conejos que ya se eligieron.
+		// Las hembras son el sobrante de conejos a morir entre el veinte por ciento
+		// Y la cantidad de conejos que ya se eligieron.
 		int hembras = quince - machos;
-		//Si la cantidad de machos a morir es mayor a la cantidad de conejos en ese momento
-		//Se vuelve a calcular la cantidad de conejos.
-		while(machos>this.machos.size()||hembras>this.hembras.size()) {
+		// Si la cantidad de machos a morir es mayor a la cantidad de conejos en ese
+		// momento
+		// Se vuelve a calcular la cantidad de conejos.
+		while (machos > this.machos.size() || hembras > this.hembras.size()) {
 			machos = probabilidad.generarAleatorio(0, quince);
 			hembras = quince - machos;
 		}
-		//Bucle para borrar a las conejas de la lista
+		// Bucle para borrar a las conejas de la lista
 		for (int i = 0; i < hembras; i++) {
 			int pos = probabilidad.generarAleatorio(0, this.hembras.size());
 			this.hembras.remove(pos);
 		}
-		//Bucle para borrar a los conejos de la lista
+		// Bucle para borrar a los conejos de la lista
 		for (int i = 0; i < machos; i++) {
 			int pos = probabilidad.generarAleatorio(0, this.machos.size());
 			this.machos.remove(pos);
@@ -141,13 +144,15 @@ public class Simulacion {
 		crearMachos(machos, 0);
 		crearHembras(hembras, 0);
 	}
-	//poblacion ideal de conejos dependiendo el area
-	//area establecida 3 conejos* 5 metros cuadrados
-	public int calcularPoblacionIdeal(int area){
-		int poblacion=0;
-		poblacion=(3*area)/5;
+
+	// poblacion ideal de conejos dependiendo el area
+	// area establecida 3 conejos* 5 metros cuadrados
+	public int calcularPoblacionIdeal(int area) {
+		int poblacion = 0;
+		poblacion = (3 * area) / 5;
 		return poblacion;
 	}
+
 	public void simular() {
 		// Bucle de los dias de estudio
 		for (int i = 0; i < tiempoEstudio; i++) {
@@ -163,15 +168,8 @@ public class Simulacion {
 					calcularCelo(hembras.get(j));// --> se envian los dias del celo respecto al metodo
 					// de calcular aleatoriamente
 				}
-				// --> Verificar celo: Si estÃ¡ en celo:
-				// --> Mediante random decidir si queda embarazada o no.
-				// --> Si queda embarazada:
-				// -Quitar celo,
-				// -Generar el numero de gazapos: de 4 - 8 si la coneja tiene de 2 a 5 aÃ±os.
 				// -Generar el tiempo de gestaciÃ³n de los conejos:
 				// 98% 31 dÃ­as --- 28 a 35 dÃ­as dependiendo del numero de gazapos.
-				// -->Sino queda: -Quitar celo
-				// -Calcular dÃ­as para el celo.
 				if (hembras.get(j).getDiasCelo() == 0) {
 
 					hembras.get(j).setEmbarazo(embarazo());
@@ -179,13 +177,8 @@ public class Simulacion {
 						hembras.get(j).setCelo(false);
 						if (hembras.get(j).getEdad() >= (2 * 365) && hembras.get(j).getEdad() <= (5 * 365)) {
 							hembras.get(j).setGazapos(probabilidad.generarAleatorio(4, 8));// aqui enviamos el numero de
-							// gazapos segun randome 4 -
-							// 8 si la
 						}
-						if (hembras.get(j).getEdad() < (2 * 365)) {
-							hembras.get(j).setGazapos(probabilidad.generarAleatorio(6, 8));
-						}
-						if (hembras.get(j).getEdad() > (5 * 365)) {
+						if (hembras.get(j).getEdad() < (2 * 365) || hembras.get(j).getEdad() > (5 * 365)) {
 							hembras.get(j).setGazapos(probabilidad.generarAleatorio(4, 6));
 						}
 						// hay q hacer un random diferente para el 98% de probabilidad para 31
@@ -203,17 +196,14 @@ public class Simulacion {
 				}
 				if (hembras.get(j).isEmbarazo()) {
 					if (hembras.get(j).getTiempoGestacion() == 0) {
-						// -->Verificar parto: Si los dias del parto son iguales a 0:
-						// -->Calcular mortalidad de gazapos:
-						// en promedio 2, pero varia respecto a la
-						// edad de la coneja, entre mÃƒÂ¡s joven mÃƒÂ¡s probabilidad de morir,
-						// y la cantidad de gazapos en el parto, a mayor cantidad,
-						// mayor probabilidad.
-						// -->Generar cantidad de machos y hembras respecto a los sobrevivientes.
-						// -->Agregar machos y hembras a la lista correspondiente.
-						// -->Quitar estado de embarazo, poner estado de lactancia.
-						// -->Calcular celo.
-						// -->DÃƒÂ­as de lactancia: 4 semanas.
+						if (hembras.get(j).getEdad() >= (2 * 365) && hembras.get(j).getEdad() <= (5 * 365)) {
+							int muertos = probabilidad.generarAleatorio(0, 2);
+							hembras.get(j).setGazapos(hembras.get(j).getGazapos() - muertos);
+						}
+						if (hembras.get(j).getEdad() < (2 * 365)) {
+							int muertos = probabilidad.generarAleatorio(0, 4);
+							hembras.get(j).setGazapos(hembras.get(j).getGazapos() - muertos);
+						}
 						generarHijos(hembras.get(j));
 						hembras.get(j).setEmbarazo(false);
 						hembras.get(j).setLactancia(true);
@@ -222,7 +212,6 @@ public class Simulacion {
 					}
 				}
 
-				// -->Si estÃ¡ lactando:
 				// -->Verificar lactancia y embarazo: Si la coneja tiene en 1 los dÃ­as de
 				// lactancia
 				// y estÃ¡ embarazada agregar 1 semana de lactancia.
@@ -232,17 +221,24 @@ public class Simulacion {
 
 				hembras.get(j).reducirDia();
 				hembras.get(j).setEdad(hembras.get(j).getEdad() + 1);
-				if (hembras.get(j).getEdad() == 5475) hembras.remove(hembras.get(j));// matar(hembras.get(j)) utlizando el metodo
-				
-				//metodos para evaluar matanza por caza y clima
-				if(estacion==0) {
-					estacion=3*365;
-					if(caza) {
-						caza=!caza;
+				if (hembras.get(j).getEdad() == 5475) {
+					hembras.remove(hembras.get(j));
+				} // matar(hembras.get(j)) utlizando el metodo
+				hembras.get(j).setEdad(hembras.get(j).getEdad() + 1);
+
+				// metodos para evaluar matanza por caza y clima
+				if (estacion == 0) {
+					estacion = 3 * 365;
+					if (caza) {
+						caza = !caza;
 						matarPorTemporadaDeCaza();
-					}else matarPorClima();
-				}else { caza=!caza; estacion --;}
-				
+					} else
+						matarPorClima();
+				} else {
+					caza = !caza;
+					estacion--;
+				}
+
 			}
 		}
 	}
@@ -282,15 +278,15 @@ public class Simulacion {
 	// se mata por caza en primavera y otoño se sacrifica como maximo el numero de
 	// conejos que hagan falta para aproximarse a la poblacion ideal
 	private void matarPorTemporadaDeCaza() {
-		int faltantes =(machos.size()+hembras.size())-calcularPoblacionIdeal(area);
-		int muertosMachos=probabilidad.generarAleatorio(0, faltantes);
-		
-		// OJO se moririan siempre los mas viejos 
+		int faltantes = (machos.size() + hembras.size()) - calcularPoblacionIdeal(area);
+		int muertosMachos = probabilidad.generarAleatorio(0, faltantes);
+
+		// OJO se moririan siempre los mas viejos
 		for (int i = 0; i < muertosMachos; i++) {
 			machos.remove(i);
 		}
-		
-		for (int i = 0; i < (faltantes-muertosMachos); i++) {
+
+		for (int i = 0; i < (faltantes - muertosMachos); i++) {
 			hembras.remove(i);
 		}
 	}
@@ -298,15 +294,15 @@ public class Simulacion {
 	// se mata en invierno y veranose sacrifica como maximo el numero de
 	// conejos que hagan falta para aproximarse a la poblacion ideal
 	private void matarPorClima() {
-		int faltantes =(machos.size()+hembras.size())-calcularPoblacionIdeal(area);
-		int muertosMachos=probabilidad.generarAleatorio(0, faltantes);
-		
-		// OJO se moririan siempre los mas viejos 
+		int faltantes = (machos.size() + hembras.size()) - calcularPoblacionIdeal(area);
+		int muertosMachos = probabilidad.generarAleatorio(0, faltantes);
+
+		// OJO se moririan siempre los mas viejos
 		for (int i = 0; i < muertosMachos; i++) {
 			machos.remove(i);
 		}
-		
-		for (int i = 0; i < (faltantes-muertosMachos); i++) {
+
+		for (int i = 0; i < (faltantes - muertosMachos); i++) {
 			hembras.remove(i);
 		}
 
