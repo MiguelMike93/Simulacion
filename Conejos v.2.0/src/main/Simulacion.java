@@ -49,12 +49,11 @@ public class Simulacion {
 		}
 	}
 
-	private boolean verificarSiHayMachosDisponibles() {
-		boolean siHayMachos = false;
+	private int verificarSiHayMachos() {
+		int siHayMachos = 0;
 		for (int i = 0; i < machos.size(); i++) {
 			if (machos.get(i).isMadurez()) {
-				siHayMachos = true;
-				break;
+				siHayMachos ++;
 			}
 		}
 		return siHayMachos;
@@ -129,6 +128,7 @@ public class Simulacion {
 	public void simular() {
 		// Bucle de los dias de estudio
 		for (int i = 0; i < tiempoEstudio; i++) {
+			int hembrasAreproducir=verificarSiHayMachos()*5;
 			// Bucle de conejos macho
 			for (int j = 0; j < machos.size(); j++) {
 				verificarMadurez(machos.get(j));
@@ -149,8 +149,17 @@ public class Simulacion {
 				// -Generar el tiempo de gestaciÃ³n de los conejos:
 				// 98% 31 dÃ­as --- 28 a 35 dÃ­as dependiendo del numero de gazapos.
 				if (hembras.get(j).getDiasCelo() == 0) {
-
-					hembras.get(j).setEmbarazo(embarazo());
+					
+					if (hembrasAreproducir>0) {
+//						se duda dejar el metodo de probabilidad
+						hembras.get(j).setEmbarazo(true);
+						hembrasAreproducir--;
+					}
+					if (hembrasAreproducir==0) {
+						hembras.get(j).setEmbarazo(false);
+					}
+					
+					
 					if (hembras.get(j).isEmbarazo()) {
 						hembras.get(j).setCelo(false);
 						if (hembras.get(j).getEdad() >= (2 * 365) && hembras.get(j).getEdad() <= (5 * 365)) {
@@ -160,7 +169,7 @@ public class Simulacion {
 							hembras.get(j).setGazapos(probabilidad.generarAleatorio(4, 6));
 						}
 						// hay q hacer un random diferente para el 98% de probabilidad para 31
-						hembras.get(j).setTiempoGestacion(probabilidad.generarAleatorio(28, 35));// radom gestacion 98%
+						hembras.get(j).setTiempoGestacion(probabilidad.diasConcepcion(hembras.get(j).getGazapos()));// radom gestacion 98%
 						// 31 dÃ­as --- 28 a
 						// 35 dÃ­as
 						// dependiendo del numero de gazapos
@@ -218,17 +227,8 @@ public class Simulacion {
 			hembras.remove(conejo);
 	}
 
-	// se matara el 5% de los conejos mensual por enfermedad
-	private void matarPorEnfermedad() {
-		// TODO Auto-generated method stub
+	
 
-	}
-
-	// aqui se sacrifican los conejos cuando pesan mas de 8 kilos y tienen mas de 3
-	// meses de edad
-	private void sacrificar() {
-
-	}
 
 	// se reproducede acuerdo a los machos donde 1 macho puede reproducirce con 5
 	// hembras
@@ -237,11 +237,5 @@ public class Simulacion {
 
 	}
 
-	// se alimenta a diario 3 veces con un random de 10 a 30 gramos diarios que es
-	// el peso que gana el conejo despues de las dos primeras semanas
-	private void alimentar() {
-		// TODO Auto-generated method stub
-
-	}
 
 }
