@@ -130,6 +130,11 @@ public class Simulacion {
 			for (int j = 0; j < machos.size(); j++) {
 				verificarMadurez(machos.get(j));
 				machos.get(j).setEdad(machos.get(j).getEdad() + 1);// Aumenta la edad del conejo.
+				
+				//matar por peso 
+				if(machos.get(j).getPeso()>=8000 && machos.get(j).getEdad()>=(30*3)) {
+					machos.remove(j);
+				}
 			}
 			// Bucle de conejos hembra
 			for (int j = 0; j < hembras.size(); j++) {
@@ -207,11 +212,11 @@ public class Simulacion {
 
 				hembras.get(j).reducirDia();
 				hembras.get(j).setEdad(hembras.get(j).getEdad() + 1);
-				if (hembras.get(j).getEdad() == 5475)
-					hembras.remove(hembras.get(j));// matar(hembras.get(j)) utlizando el metodo
-				// -->Reducir días: Metodo que reduzca los días de todas los posibles estados
-				// siempre y cuando el numero de días sea mayor a 0.
-				// -->Aumentar edad coneja;
+				if (hembras.get(j).getEdad() == 5475) hembras.remove(hembras.get(j));// matar(hembras.get(j)) utlizando el metodo
+				
+				if(hembras.get(j).getPeso()>=8000 && hembras.get(j).getEdad()>=(30*3)) {
+					hembras.remove(j);
+				}
 			}
 		}
 	}
