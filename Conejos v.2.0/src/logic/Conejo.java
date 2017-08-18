@@ -16,6 +16,7 @@ public class Conejo {
 		this.diasLactancia=-1;// es el random FALTA POR HACER
 		this.tiempoGestacion=-1;// es el random FALTA POR HACER	
 		this.gazapos=-1;//es el random FALTA POR HACER
+		int peso=0;
 	}
 	
 	public void reducirDia() {
