@@ -74,6 +74,32 @@ public class Simulacion {
 	private void calcularCelo(Conejo conejo) {
 		conejo.setDiasCelo(probabilidad.generarAleatorio(14, 16));
 	}
+	
+	private void muertePorEnfermedad() {
+		//Se saca el 5% de los conejos en ese momento.
+		int cinco = (int)((int) (hembras.size()+machos.size())*0.05);
+		//Mediante el aleatorio se sacan la cantidad de conejos a morir.
+		int machos = probabilidad.generarAleatorio(0, cinco);
+		//Las hembras son el sobrante de conejos a morir entre el veinte por ciento
+		//Y la cantidad de conejos que ya se eligieron.
+		int hembras = cinco - machos;
+		//Si la cantidad de machos a morir es mayor a la cantidad de conejos en ese momento
+		//Se vuelve a calcular la cantidad de conejos.
+		while(machos>this.machos.size()||hembras>this.hembras.size()) {
+			machos = probabilidad.generarAleatorio(0, cinco);
+			hembras = cinco - machos;
+		}
+		//Bucle para borrar a las conejas de la lista
+		for (int i = 0; i < hembras; i++) {
+			int pos = probabilidad.generarAleatorio(0, this.hembras.size());
+			this.hembras.remove(pos);
+		}
+		//Bucle para borrar a los conejos de la lista
+		for (int i = 0; i < machos; i++) {
+			int pos = probabilidad.generarAleatorio(0, this.machos.size());
+			this.machos.remove(pos);
+		}
+}
 
 	private void generarHijos(Conejo conejo) {
 		int machos = probabilidad.generarAleatorio(0, conejo.getGazapos());
