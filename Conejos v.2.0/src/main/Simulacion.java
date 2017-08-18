@@ -251,29 +251,6 @@ public class Simulacion {
 	}
 
 	// ----------------------METODOS CAUTIVERIO--------------------------------
-	// en este metodo se matara el 20% de la poblacion total
-	private void matarPorDepredadores() {
-		// se genera % de muertos sobre la poblacion total
-		// se utiliza el random del rando de los posibles muertos que seran los machos y
-		// el restante
-		// ls hembras
-
-	}
-
-	// en este metodo se matara el 15% de ls conejos por enfermedades
-	private void matarPorEnfermedades() {
-		// se genera % de muertos sobre la poblacion total
-		// se utiliza el random del rando de los posibles muertos que seran los machos y
-		// el restante
-		// ls hembras
-
-	}
-
-	// se calcula la poblacion ideal respecto al area del terreno--> se propone 3
-	// conejos por cada 5m^2
-	private int calcularPoblacionPorArea(int area) {
-		return area;
-	}
 
 	// se mata por caza en primavera y otoño se sacrifica como maximo el numero de
 	// conejos que hagan falta para aproximarse a la poblacion ideal
