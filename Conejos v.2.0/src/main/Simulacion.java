@@ -12,6 +12,13 @@ public class Simulacion {
 	private ArrayList<Conejo> machos, hembras;
 	private Probabilidad probabilidad;
 
+	/**
+	 * este es mi orden de estaciones: primavera verano otoño invierno 
+	 */
+	private int estacion; // se inicializa en 3 meses(365*3) cada tres meces se cambia de estacion 
+	private boolean caza;// true cuando es temporada de caza (primavera- otoño)/else matar por clima (verano/invierno)
+	private int area;// faltava este atributo
+	
 	public Simulacion(int tiempoEstudio, int machos, int hembras, int edadMachos, int edadHembras, int distribucion) {
 		this.tiempoEstudio = tiempoEstudio;
 		this.machos = new ArrayList<>();
@@ -225,11 +232,17 @@ public class Simulacion {
 
 				hembras.get(j).reducirDia();
 				hembras.get(j).setEdad(hembras.get(j).getEdad() + 1);
-				if (hembras.get(j).getEdad() == 5475)
-					hembras.remove(hembras.get(j));// matar(hembras.get(j)) utlizando el metodo
-				// -->Reducir dÃ­as: Metodo que reduzca los dÃ­as de todas los posibles estados
-				// siempre y cuando el numero de dÃ­as sea mayor a 0.
-				// -->Aumentar edad coneja;
+				if (hembras.get(j).getEdad() == 5475) hembras.remove(hembras.get(j));// matar(hembras.get(j)) utlizando el metodo
+				
+				//metodos para evaluar matanza por caza y clima
+				if(estacion==0) {
+					estacion=3*365;
+					if(caza) {
+						caza=!caza;
+						matarPorTemporadaDeCaza();
+					}else matarPorClima();
+				}else { caza=!caza; estacion --;}
+				
 			}
 		}
 	}
@@ -269,13 +282,33 @@ public class Simulacion {
 	// se mata por caza en primavera y otoño se sacrifica como maximo el numero de
 	// conejos que hagan falta para aproximarse a la poblacion ideal
 	private void matarPorTemporadaDeCaza() {
-
+		int faltantes =(machos.size()+hembras.size())-calcularPoblacionIdeal(area);
+		int muertosMachos=probabilidad.generarAleatorio(0, faltantes);
+		
+		// OJO se moririan siempre los mas viejos 
+		for (int i = 0; i < muertosMachos; i++) {
+			machos.remove(i);
+		}
+		
+		for (int i = 0; i < (faltantes-muertosMachos); i++) {
+			hembras.remove(i);
+		}
 	}
 
 	// se mata en invierno y veranose sacrifica como maximo el numero de
 	// conejos que hagan falta para aproximarse a la poblacion ideal
 	private void matarPorClima() {
-		// TODO Auto-generated method stub
+		int faltantes =(machos.size()+hembras.size())-calcularPoblacionIdeal(area);
+		int muertosMachos=probabilidad.generarAleatorio(0, faltantes);
+		
+		// OJO se moririan siempre los mas viejos 
+		for (int i = 0; i < muertosMachos; i++) {
+			machos.remove(i);
+		}
+		
+		for (int i = 0; i < (faltantes-muertosMachos); i++) {
+			hembras.remove(i);
+		}
 
 	}
 
