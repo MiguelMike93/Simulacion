@@ -120,6 +120,24 @@ public class Probabilidad {
 		}return result;
 	}
 
+	/**
+	 * Calculo aleatorio de Dias en concepcion segun el parametro	
+	 * @param fetosEnGestacion a partir de este valor se genera el valor aleatorio de los dias en concepcion de acuerdo a la informacion del documento
+	 * @return Dias en concepcion -> 98% de probabilidad de que sea 31 y para el 2% puede ser de 28 a 35 dependiendo del numero de fetos en gestacion
+	 * entre mas fetos mayo seran los dias
+	 */
+	public  int diasConcepcion(int fetosEnGestacion) {
+		int result = 0;
+		if(r.nextInt(100)>98) {
+			result =  31;
+		}else {
+			if(fetosEnGestacion > 6) {
+				result = distribucionBinomial(31, 35);
+			}else {
+				result = distribucionNormal(28, 30);
+			}
+		}return result;		
+	}
 	
 	private void test(int iteraciones, int menor, int mayor) {
 		setLevels((mayor - menor) + 1);
