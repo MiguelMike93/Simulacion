@@ -49,12 +49,11 @@ public class Simulacion {
 		}
 	}
 
-	private boolean verificarSiHayMachosDisponibles() {
-		boolean siHayMachos = false;
+	private int verificarSiHayMachos() {
+		int siHayMachos = 0;
 		for (int i = 0; i < machos.size(); i++) {
 			if (machos.get(i).isMadurez()) {
-				siHayMachos = true;
-				break;
+				siHayMachos ++;
 			}
 		}
 		return siHayMachos;
@@ -129,6 +128,7 @@ public class Simulacion {
 	public void simular() {
 		// Bucle de los dias de estudio
 		for (int i = 0; i < tiempoEstudio; i++) {
+			int hembrasAreproducir=verificarSiHayMachos()*5;
 			// Bucle de conejos macho
 			for (int j = 0; j < machos.size(); j++) {
 				verificarMadurez(machos.get(j));
@@ -149,8 +149,17 @@ public class Simulacion {
 				// -Generar el tiempo de gestaciÃ³n de los conejos:
 				// 98% 31 dÃ­as --- 28 a 35 dÃ­as dependiendo del numero de gazapos.
 				if (hembras.get(j).getDiasCelo() == 0) {
-
-					hembras.get(j).setEmbarazo(embarazo());
+					
+					if (hembrasAreproducir>0) {
+//						se duda dejar el metodo de probabilidad
+						hembras.get(j).setEmbarazo(true);
+						hembrasAreproducir--;
+					}
+					if (hembrasAreproducir==0) {
+						hembras.get(j).setEmbarazo(false);
+					}
+					
+					
 					if (hembras.get(j).isEmbarazo()) {
 						hembras.get(j).setCelo(false);
 						if (hembras.get(j).getEdad() >= (2 * 365) && hembras.get(j).getEdad() <= (5 * 365)) {
