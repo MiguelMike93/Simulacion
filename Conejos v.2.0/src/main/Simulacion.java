@@ -81,7 +81,22 @@ public class Simulacion {
 		crearMachos(machos, 0);
 		crearHembras(hembras, 0);
 	}
-
+	//Alimenta los conejos hasta llegar a un peso de 8000gr=8kilos
+	public void alimentarConejos(){
+		int alimentar=0;
+		for (int i = 0; i < machos.size(); i++) {
+			if (machos.get(i).getPeso()<8000) {
+				alimentar=probabilidad.generarAleatorio(10, 30)*3;
+				machos.get(i).setPeso(machos.get(i).getPeso()+alimentar);
+			}
+		}
+		for (int j = 0; j < hembras.size(); j++) {
+			if (hembras.get(j).getPeso()<8000) {
+				alimentar=probabilidad.generarAleatorio(10, 30)*3;
+				hembras.get(j).setPeso(hembras.get(j).getPeso()+alimentar);
+			}
+		}
+	}
 	public void simular() {
 		// Bucle de los dias de estudio
 		for (int i = 0; i < tiempoEstudio; i++) {
