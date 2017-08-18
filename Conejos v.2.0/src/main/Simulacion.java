@@ -16,7 +16,7 @@ public class Simulacion {
 		this.tiempoEstudio = tiempoEstudio;
 		this.machos = new ArrayList<>();
 		this.hembras = new ArrayList<>();
-		probabilidad= new Probabilidad(distribucion);
+		probabilidad = new Probabilidad(distribucion);
 		crearMachos(machos, edadMachos);
 		crearHembras(hembras, edadHembras);
 	}
@@ -70,14 +70,14 @@ public class Simulacion {
 		return embarazar;
 
 	}
-	
+
 	private void calcularCelo(Conejo conejo) {
 		conejo.setDiasCelo(probabilidad.generarAleatorio(14, 16));
 	}
-	
+
 	private void generarHijos(Conejo conejo) {
 		int machos = probabilidad.generarAleatorio(0, conejo.getGazapos());
-		int hembras = conejo.getGazapos()-machos;
+		int hembras = conejo.getGazapos() - machos;
 		crearMachos(machos, 0);
 		crearHembras(hembras, 0);
 	}
@@ -111,18 +111,22 @@ public class Simulacion {
 					hembras.get(j).setEmbarazo(embarazo());
 					if (hembras.get(j).isEmbarazo()) {
 						hembras.get(j).setCelo(false);
-						if (hembras.get(j).getEdad()>=(2*365)&&hembras.get(j).getEdad()<=(5*365)) {
-							hembras.get(j).setGazapos(probabilidad.generarAleatorio(4, 8));// aqui enviamos el numero de gazapos segun randome 4 - 8 si la
+						if (hembras.get(j).getEdad() >= (2 * 365) && hembras.get(j).getEdad() <= (5 * 365)) {
+							hembras.get(j).setGazapos(probabilidad.generarAleatorio(4, 8));// aqui enviamos el numero de
+																							// gazapos segun randome 4 -
+																							// 8 si la
 						}
-						if (hembras.get(j).getEdad()<(2*365)) {
+						if (hembras.get(j).getEdad() < (2 * 365)) {
 							hembras.get(j).setGazapos(probabilidad.generarAleatorio(6, 8));
 						}
-						if (hembras.get(j).getEdad()>(5*365)) {
+						if (hembras.get(j).getEdad() > (5 * 365)) {
 							hembras.get(j).setGazapos(probabilidad.generarAleatorio(4, 6));
 						}
-						//hay q hacer un random diferente para el 98% de probabilidad para 31
-						hembras.get(j).setTiempoGestacion(probabilidad.generarAleatorio(28, 35));// radom gestacion 98% 31 días --- 28 a 35 días
-																// dependiendo del numero de gazapos
+						// hay q hacer un random diferente para el 98% de probabilidad para 31
+						hembras.get(j).setTiempoGestacion(probabilidad.generarAleatorio(28, 35));// radom gestacion 98%
+																									// 31 días --- 28 a
+																									// 35 días
+						// dependiendo del numero de gazapos
 					}
 
 					if (!hembras.get(j).isEmbarazo()) {
@@ -132,18 +136,18 @@ public class Simulacion {
 
 				}
 				if (hembras.get(j).isEmbarazo()) {
-					if(hembras.get(j).getTiempoGestacion()==0){
-					//		-->Verificar parto: Si los dias del parto son iguales a 0:
-					//					-->Calcular mortalidad de gazapos: 
-					//							en promedio 2, pero varia respecto a la
-					//							edad de la coneja, entre mÃ¡s joven mÃ¡s probabilidad de morir,
-					//							y la cantidad de gazapos en el parto, a mayor cantidad,
-					//							mayor probabilidad.
-					//					-->Generar cantidad de machos y hembras respecto a los sobrevivientes.
-					//					-->Agregar machos y hembras a la lista correspondiente.
-					//					-->Quitar estado de embarazo, poner estado de lactancia.
-					//					-->Calcular celo.
-					//					-->DÃ­as de lactancia: 4 semanas.
+					if (hembras.get(j).getTiempoGestacion() == 0) {
+						// -->Verificar parto: Si los dias del parto son iguales a 0:
+						// -->Calcular mortalidad de gazapos:
+						// en promedio 2, pero varia respecto a la
+						// edad de la coneja, entre mÃ¡s joven mÃ¡s probabilidad de morir,
+						// y la cantidad de gazapos en el parto, a mayor cantidad,
+						// mayor probabilidad.
+						// -->Generar cantidad de machos y hembras respecto a los sobrevivientes.
+						// -->Agregar machos y hembras a la lista correspondiente.
+						// -->Quitar estado de embarazo, poner estado de lactancia.
+						// -->Calcular celo.
+						// -->DÃ­as de lactancia: 4 semanas.
 						generarHijos(hembras.get(j));
 						hembras.get(j).setEmbarazo(false);
 						hembras.get(j).setLactancia(true);
@@ -151,7 +155,7 @@ public class Simulacion {
 						hembras.get(j).setDiasLactancia(28);
 					}
 				}
-				
+
 				// -->Si está lactando:
 				// -->Verificar lactancia y embarazo: Si la coneja tiene en 1 los días de
 				// lactancia
@@ -176,6 +180,44 @@ public class Simulacion {
 			machos.remove(conejo);
 		} else
 			hembras.remove(conejo);
+	}
+
+	// ----------------------METODOS CAUTIVERIO--------------------------------
+	// en este metodo se matara el 20% de la poblacion total
+	private void matarPorDepredadores() {
+		// se genera % de muertos sobre la poblacion total
+		// se utiliza el random del rando de los posibles muertos que seran los machos y
+		// el restante
+		// ls hembras
+
+	}
+
+	// en este metodo se matara el 15% de ls conejos por enfermedades
+	private void matarPorEnfermedades() {
+		// se genera % de muertos sobre la poblacion total
+		// se utiliza el random del rando de los posibles muertos que seran los machos y
+		// el restante
+		// ls hembras
+
+	}
+
+	// se calcula la poblacion ideal respecto al area del terreno--> se propone 3
+	// conejos por cada 5m^2
+	private int calcularPoblacionPorArea(int area) {
+		return area;
+	}
+
+	// se mata por caza en primavera y oto�o se sacrifica como maximo el numero de
+	// conejos que hagan falta para aproximarse a la poblacion ideal
+	private void matarPorTemporadaDeCaza() {
+
+	}
+
+	// se mata en invierno y veranose sacrifica como maximo el numero de
+	// conejos que hagan falta para aproximarse a la poblacion ideal
+	private void matarPorClima() {
+		// TODO Auto-generated method stub
+
 	}
 
 }
