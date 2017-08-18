@@ -101,12 +101,12 @@ public class Simulacion {
 
 		// Bucle para borrar a las conejas de la lista
 		for (int i = 0; i < hembras; i++) {
-			int pos = probabilidad.generarAleatorio(0, this.hembras.size());
+			int pos = probabilidad.generarAleatorio(0, this.hembras.size()-1);
 			this.hembras.remove(pos);
 		}
 		// Bucle para borrar a los conejos de la lista
 		for (int i = 0; i < machos; i++) {
-			int pos = probabilidad.generarAleatorio(0, this.machos.size());
+			int pos = probabilidad.generarAleatorio(0, this.machos.size()-1);
 			this.machos.remove(pos);
 		}
 	}
@@ -128,12 +128,12 @@ public class Simulacion {
 		}
 		// Bucle para borrar a las conejas de la lista
 		for (int i = 0; i < hembras; i++) {
-			int pos = probabilidad.generarAleatorio(0, this.hembras.size());
+			int pos = probabilidad.generarAleatorio(0, this.hembras.size()-1);
 			this.hembras.remove(pos);
 		}
 		// Bucle para borrar a los conejos de la lista
 		for (int i = 0; i < machos; i++) {
-			int pos = probabilidad.generarAleatorio(0, this.machos.size());
+			int pos = probabilidad.generarAleatorio(0, this.machos.size()-1);
 			this.machos.remove(pos);
 		}
 	}
@@ -248,14 +248,14 @@ public class Simulacion {
 				
 
 			}
-			if (mes>0) {
-				mes-=1;
-			}
-			if (mes==0) {
-				matarPorEnfermedad();
-				matarPorDepredador();
-				mes=30;
-			}
+//			if (mes>0) {
+//				mes-=1;
+//			}
+//			if (mes==0) {
+//				matarPorEnfermedad();
+//				matarPorDepredador();
+//				mes=30;
+//			}
 			System.out.println("Hembras "+hembras.size()+" machos "+machos.size()+"  Dia "+i);
 		}
 	}
@@ -273,7 +273,7 @@ public class Simulacion {
 	// conejos que hagan falta para aproximarse a la poblacion ideal
 	private void matarPorTemporadaDeCaza() {
 		int faltantes = (machos.size() + hembras.size()) - calcularPoblacionIdeal(area);
-		int muertosMachos = probabilidad.generarAleatorio(0, faltantes);
+		int muertosMachos = probabilidad.generarAleatorio(0, faltantes-1);
 
 		// OJO se moririan siempre los mas viejos
 		for (int i = 0; i < muertosMachos; i++) {
@@ -289,7 +289,7 @@ public class Simulacion {
 	// conejos que hagan falta para aproximarse a la poblacion ideal
 	private void matarPorClima() {
 		int faltantes = (machos.size() + hembras.size()) - calcularPoblacionIdeal(area);
-		int muertosMachos = probabilidad.generarAleatorio(0, faltantes);
+		int muertosMachos = probabilidad.generarAleatorio(0, faltantes-1);
 
 		// OJO se moririan siempre los mas viejos
 		for (int i = 0; i < muertosMachos; i++) {
